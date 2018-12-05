@@ -13,6 +13,10 @@ class App extends React.Component {
     };
   }
 
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -27,7 +31,7 @@ class App extends React.Component {
       return (
         <Container>
           <Content>
-            <Button style={styles.spacing}>
+            <Button style={styles.spacing} onPress={() => this.props.navigation.navigate('ListScreen')}>
               <Text>Click Me!</Text>
             </Button>
           </Content>
