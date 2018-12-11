@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Container } from 'native-base';
+import { Container, Spinner, List, Content } from 'native-base';
+import BusinessItem from './BusinessItem';
 
 export default class ListScreen extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class ListScreen extends Component {
        isReady: false,
        businessArray: []
     }
+    console.log(props)
   }
 
   static navigationOptions = {
@@ -30,6 +32,7 @@ export default class ListScreen extends Component {
         response = response.json()
         .then((json)=>{
           this.setState({
+            isReady: true,
             businessArray: json.businesses
           })
         })
@@ -38,9 +41,34 @@ export default class ListScreen extends Component {
   }
 
   render() {
+    if(this.state.isReady === false){
+      return (
+        <Spinner color="blue"></Spinner>
+      )
+    }
     return (
       <Container>
-
+        <Content>
+          <List>
+            {
+              this.state.businessArray.map((business)=>{
+                let distanceNum = Number(business.distance)
+                distanceNum = distanceNum / 1000
+                let roundedNum = Math.round(distanceNum * 100) / 100
+                return (<BusinessItem key={business.id}
+                        bussinessId={business.id}
+                        businessName={business.name}
+                        distance={roundedNum + " kilometers away"}
+                        rating={business.rating}
+                        price={business.price}
+                        imgUrl={business.image_url}
+                        url={business.url}
+                        category={business.categories[0].title}
+                        navigation={this.props.navigation}/>)
+              })
+            }
+          </List>
+        </Content>
       </Container>
     )
   }

@@ -4,6 +4,8 @@ import { Container, Header, Content, Button, Text, Spinner, Title, Body } from "
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import * as Expo from "expo";
 import ListScreen from "./ListScreen";
+import DetailScreen from "./DetailScreen";
+import BusinessItem from "./BusinessItem";
 
 class App extends React.Component {
   constructor() {
@@ -14,7 +16,7 @@ class App extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Home',
+    title: 'Restaurant Finder',
   };
 
   async componentWillMount() {
@@ -53,7 +55,9 @@ const styles = StyleSheet.create({
 
 const AppNavigator = createStackNavigator({
     Home: App,
-    ListScreen: ListScreen
+    ListScreen: ListScreen,
+    DetailScreen: DetailScreen,
+    BusinessItem: BusinessItem
     },
     {
       initialRouteName: "Home"
