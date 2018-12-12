@@ -1,5 +1,16 @@
+// ---------------------------------------------------//
+
+// ------------- React Native Yelp App ---------------//
+//                  ListScreen.js
+
+// ---------------------------------------------------//
+
+
+// React Imports
 import React, { Component } from 'react'
 import { Container, Spinner, List, Content } from 'native-base';
+
+// Custom Imports
 import BusinessItem from './BusinessItem';
 
 export default class ListScreen extends Component {
@@ -12,14 +23,17 @@ export default class ListScreen extends Component {
     console.log(props)
   }
 
+// Render Screen Title
   static navigationOptions = {
     title: 'Nearby Restaurants',
   };
 
+  // Async task with header
   async componentWillMount(){
     let coords
     let options = {
       headers: {
+        // API KEY sent with request
         'Authorization': 'Bearer Qe7erPKtpDwXNB3yC4Rj5cLuZ6aEGcADzmqPP0nd8LodFNeFNmCcwKZjrECi9K6hS5kvV5CLMnrk4yDpJc1N5yk-LhAmHL9llrAdFEUeBcN_OdtM3gPAR0VI7zQIXHYx'
       }
     }
@@ -27,6 +41,8 @@ export default class ListScreen extends Component {
       console.log(success.coords)
       coords = success.coords
       console.log(coords)
+
+      // Fetch data from Yelp API
       fetch('https://api.yelp.com/v3/businesses/search?latitude=' + coords.latitude + '&longitude=' + coords.longitude + '&sort_by=distance', options)
       .then((response) => {
         response = response.json()
@@ -40,6 +56,7 @@ export default class ListScreen extends Component {
     })
   }
 
+  // Render loading spinner while List loads contents
   render() {
     if(this.state.isReady === false){
       return (
