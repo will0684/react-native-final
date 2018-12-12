@@ -33,7 +33,7 @@ class App extends React.Component {
       return (
         <Container>
           <Content>
-            <Button style={styles.spacing} onPress={() => this.props.navigation.navigate('ListScreen')}>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate('ListScreen')}>
               <Text>Click Me!</Text>
             </Button>
           </Content>
@@ -47,7 +47,7 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  spacing: {
+  button: {
     flex: 1,
     alignSelf: "center",
     marginTop: 200

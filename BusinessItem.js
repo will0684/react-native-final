@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { ListItem, Text, Row } from 'native-base'
 
-export default class BusinessItem extends Component {
+export default class BusinessItem extends React.Component {
   constructor(props) {
     super(props)
     console.log(props)

@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { Container, Image, Thumbnail, Text } from 'native-base';
+import React from 'react'
+import { Image, StyleSheet, Linking } from 'react-native'
+import { Container, Thumbnail, Text, Content, Button } from 'native-base';
+import Hyperlink from 'react-native-hyperlink'
 
-export default class DetailScreen extends Component {
+export default class DetailScreen extends React.Component {
   constructor(props) {
     super(props)
 
@@ -18,15 +20,35 @@ export default class DetailScreen extends Component {
     const price = this.props.navigation.getParam('price')
     const imageUrl = this.props.navigation.getParam('imgUrl')
     const url = this.props.navigation.getParam('url')
+    console.log(imageUrl)
     return (
       <Container>
-        <Thumbnail large source={{ uri: imageUrl }}/>
-        <Text>{ businessName }</Text>
-        <Text>Distance From You: { distance }</Text>
-        <Text>Rating: { rating }</Text>
-        <Text>Price: { price }</Text>
-        <Text>Visit Site: { url }</Text>
+        <Content>
+          <Image style={{width: 400, height: 400, alignSelf: 'center'}} source={{ uri: imageUrl }}/>
+          <Text style={styles.textSpacing}>{ businessName }</Text>
+          <Text style={styles.textSpacing}>Distance From You: { distance }</Text>
+          <Text style={styles.textSpacing}>Rating: { rating }</Text>
+          <Text style={styles.textSpacing}>Price: <Text style={styles.priceStyles}>{ price }</Text></Text>
+          <Button style={styles.buttonStyles} onPress={ ()=>{ Linking.openURL(url) } }>
+            <Text>VIEW ON YELP</Text>
+          </Button>
+        </Content>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  textSpacing: {
+    paddingLeft: 16,
+    paddingBottom: 12
+  },
+  priceStyles: {
+    color: 'green'
+  },
+  buttonStyles: {
+    marginTop: 40,
+    backgroundColor: '#C41200',
+    alignSelf: 'center'
+  }
+})
